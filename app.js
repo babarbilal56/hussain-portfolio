@@ -6,12 +6,81 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
+  initAccountsFilter();
   initRoasCalculator();
   initUtmBuilder();
   initCopyActions();
   initContactForm();
   initTabSwitching();
 });
+
+/* ==========================================================================
+   Managed Accounts Real-Time Filter & Search
+   ========================================================================== */
+function initAccountsFilter() {
+  const searchInput = document.getElementById('accountSearchInput');
+  const clearBtn = document.getElementById('clearSearchBtn');
+  const filterPills = document.querySelectorAll('.category-filter-pills .filter-pill');
+  const accountCards = document.querySelectorAll('#accountsGrid .account-card');
+  const countDisplay = document.getElementById('accountCount');
+
+  if (!accountCards.length) return;
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  function filterAccounts() {
+    let visibleCount = 0;
+
+    accountCards.forEach(card => {
+      const cardCategory = card.dataset.category || '';
+      const cardText = (card.textContent || '').toLowerCase();
+
+      const matchesCategory = (currentCategory === 'all' || cardCategory === currentCategory);
+      const matchesSearch = (!searchQuery || cardText.includes(searchQuery));
+
+      if (matchesCategory && matchesSearch) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (countDisplay) {
+      countDisplay.textContent = visibleCount;
+    }
+
+    if (clearBtn) {
+      clearBtn.style.display = searchQuery ? 'block' : 'none';
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      filterAccounts();
+    });
+  }
+
+  if (clearBtn && searchInput) {
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      filterAccounts();
+      searchInput.focus();
+    });
+  }
+
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentCategory = pill.dataset.filter;
+      filterAccounts();
+    });
+  });
+}
 
 /* ==========================================================================
    Navigation & Mobile Menu

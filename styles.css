@@ -725,6 +725,354 @@ a {
 }
 
 /* ==========================================================================
+   Brand Marquee Ticker
+   ========================================================================== */
+.marquee-strip {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  overflow: hidden;
+  background: rgba(14, 22, 38, 0.65);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1rem 0;
+  display: flex;
+  user-select: none;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  white-space: nowrap;
+  animation: marquee-scroll 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee-strip:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  letter-spacing: 0.02em;
+  transition: color var(--transition-fast);
+}
+
+.marquee-item:hover {
+  color: var(--cyan-primary);
+}
+
+.brand-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan-primary);
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   Managed Client Accounts Portfolio Section
+   ========================================================================== */
+.accounts-section {
+  padding-top: 5rem;
+}
+
+.accounts-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 2rem;
+  margin-bottom: 2.5rem;
+  gap: 1.5rem;
+}
+
+.summary-stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text-white);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.stat-sub {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.summary-divider {
+  display: none;
+}
+
+/* Controls Bar */
+.accounts-controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.2rem;
+}
+
+.search-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+#accountSearchInput {
+  width: 100%;
+  padding: 0.95rem 1rem 0.95rem 3.2rem;
+  background: rgba(14, 22, 38, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-white);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  transition: all var(--transition-smooth);
+}
+
+#accountSearchInput:focus {
+  outline: none;
+  border-color: var(--cyan-primary);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+  background: rgba(14, 22, 38, 0.95);
+}
+
+.clear-search {
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.clear-search:hover {
+  color: var(--text-white);
+}
+
+.category-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  padding: 0.5rem 1.1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-pill.active {
+  background: var(--gradient-cyan-blue);
+  color: #050b14;
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
+}
+
+.accounts-results-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.accounts-results-meta strong {
+  color: var(--cyan-primary);
+}
+
+.results-note {
+  color: var(--text-dim);
+}
+
+/* Accounts Grid */
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+.account-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.account-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background var(--transition-fast);
+}
+
+.account-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-card);
+  background: var(--bg-card-hover);
+}
+
+.account-card:hover::before {
+  background: var(--gradient-cyan-blue);
+}
+
+.account-card.hidden {
+  display: none !important;
+}
+
+.account-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.cat-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+.region-badge {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.account-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text-white);
+  line-height: 1.3;
+}
+
+.account-niche {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 1.1rem;
+}
+
+.account-strategy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.strategy-badge {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.5rem;
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid rgba(0, 242, 254, 0.15);
+  border-radius: 4px;
+  color: var(--cyan-primary);
+}
+
+/* Responsive updates for Accounts */
+@media (max-width: 1024px) {
+  .accounts-summary-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .accounts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .accounts-summary-strip {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+  .accounts-grid {
+    grid-template-columns: 1fr;
+  }
+  .category-filter-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* ==========================================================================
    Section Layouts & Headers
    ========================================================================== */
 .section {
